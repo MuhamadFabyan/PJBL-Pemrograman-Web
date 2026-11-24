@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Note;
 use Illuminate\Http\Request;
+use Mews\Purifier\Facades\Purifier;
 
 class NoteController extends Controller
 {
-    // Menampilkan halaman catatan
+    // Menampilkan catatan
     public function index()
     {
         $notes = Note::latest()->get();
@@ -19,17 +20,20 @@ class NoteController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-        ]);
+        'title' => 'required|string|max:255',
+        'content' => 'required|string',
+    ]);
 
-        Note::create($validated);
+    $validated['content'] = Purifier::clean(
+        $validated['content']
+    );
 
-        return redirect()
-            ->route('notes.index')
-            ->with('success', 'Catatan berhasil disimpan!');
+    Note::create($validated);
+
+    return redirect()
+        ->route('notes.index')
+        ->with('success', 'Catatan berhasil disimpan!');
     }
-
     // Menghapus catatan
     public function destroy(Note $note)
     {
