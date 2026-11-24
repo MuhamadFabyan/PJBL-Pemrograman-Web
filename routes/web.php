@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -11,14 +12,14 @@ Route::view('/pembelian', 'pembelian.index');
 Route::view('/pengeluaran', 'pengeluaran.index');
 Route::view('/analisis-data', 'analisis-data.index');
 
-// Bagian Anggota 3 (Terhubung langsung ke Sidebar Rekap Laporan & Import / Export)
+// Bagian Anggota 3
 Route::get('/rekap-laporan', [ReportController::class, 'index'])->name('rekap-laporan.index');
 Route::get('/import-export', [ReportController::class, 'importExportPage'])->name('import-export.index');
 Route::get('/reports/export-excel', [ReportController::class, 'exportExcel'])->name('reports.export.excel');
 Route::post('/reports/import-excel', [ReportController::class, 'importExcel'])->name('reports.import.excel');
 Route::get('/reports/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.export.pdf');
 
-Route::view('/catatan', 'catatan.index');
+// Bagian Catatan
 Route::get('/catatan', [NoteController::class, 'index'])->name('notes.index');
 Route::post('/catatan', [NoteController::class, 'store'])->name('notes.store');
 Route::delete('/catatan/{note}', [NoteController::class, 'destroy'])->name('notes.destroy');

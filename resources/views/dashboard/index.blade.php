@@ -11,7 +11,7 @@
         <div class="col-md-3">
             <div class="card p-3">
                 <h6>Total Stok Bahan</h6>
-                <h3>0</h3>
+                <h3 id="totalStok">0</h3>
             </div>
         </div>
 
@@ -37,4 +37,18 @@
         </div>
     </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    fetch('/api/v1/dashboard')
+        .then(response => response.json())
+        .then(result => {
+            const data = result.data;
+
+            document.getElementById('totalStok').textContent =
+                data.total_stok;
+
+        })
+        .catch(error => console.error('Gagal mengambil data dashboard:', error));
+});
+</script>
 @endsection

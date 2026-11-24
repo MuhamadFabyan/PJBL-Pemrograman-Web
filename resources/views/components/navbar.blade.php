@@ -7,8 +7,8 @@
         </button>
 
         <div>
-            <h5 class="mb-0">Selamat Datang!</h5>
-            <small class="text-muted">Kelola bisnis UMKM-mu hari ini.</small>
+            <h5 class="mb-0">Selamat Datang Juragan!</h5>
+            <small class="text-muted"><i>Let's make more money today.</i></small>
         </div>
     </div>
 
