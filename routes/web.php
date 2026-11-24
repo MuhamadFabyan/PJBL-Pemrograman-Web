@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\ReportController;
 
 Route::view('/', 'dashboard.index')->name('dashboard');
 Route::view('/dashboard', 'dashboard.index');
@@ -9,14 +10,15 @@ Route::view('/stok-bahan', 'stok-bahan.index');
 Route::view('/pembelian', 'pembelian.index');
 Route::view('/pengeluaran', 'pengeluaran.index');
 Route::view('/analisis-data', 'analisis-data.index');
-Route::view('/rekap-laporan', 'rekap-laporan.index');
-Route::view('/import-export', 'import-export.index');
+
+// Bagian Anggota 3 (Terhubung langsung ke Sidebar Rekap Laporan & Import / Export)
+Route::get('/rekap-laporan', [ReportController::class, 'index'])->name('rekap-laporan.index');
+Route::get('/import-export', [ReportController::class, 'importExportPage'])->name('import-export.index');
+Route::get('/reports/export-excel', [ReportController::class, 'exportExcel'])->name('reports.export.excel');
+Route::post('/reports/import-excel', [ReportController::class, 'importExcel'])->name('reports.import.excel');
+Route::get('/reports/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.export.pdf');
+
 Route::view('/catatan', 'catatan.index');
-Route::get('/catatan', [NoteController::class, 'index'])
-    ->name('notes.index');
-
-Route::post('/catatan', [NoteController::class, 'store'])
-    ->name('notes.store');
-
-Route::delete('/catatan/{note}', [NoteController::class, 'destroy'])
-    ->name('notes.destroy');
+Route::get('/catatan', [NoteController::class, 'index'])->name('notes.index');
+Route::post('/catatan', [NoteController::class, 'store'])->name('notes.store');
+Route::delete('/catatan/{note}', [NoteController::class, 'destroy'])->name('notes.destroy');
