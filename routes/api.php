@@ -12,6 +12,7 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('purchases', PurchaseController::class);
     Route::apiResource('expenses', ExpenseController::class);
     Route::get('/dashboard', [IngredientController::class, 'dashboard']);
+
 });
 
 

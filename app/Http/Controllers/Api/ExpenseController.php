@@ -15,12 +15,16 @@ class ExpenseController extends Controller
         $expenses = Expense::latest('expense_date')->get();
 
         $summary = [
-            'total_transaksi'   => Expense::count(),
+            'total_transaksi' => Expense::count(),
             'total_pengeluaran' => Expense::sum('amount'),
-            'jenis_bahan'       => Ingredient::count(),
-            'update_terakhir'   => Expense::latest('updated_at')->value('updated_at'),
-        ];
+            'pengeluaran_bulan_ini' => Expense::whereMonth(
+                'expense_date', now()->month
+                )->whereYear(
+                    'expense_date', now()->year
+                    )->sum('amount'),
 
+    'update_terakhir' => Expense::latest('updated_at')->value('updated_at'),
+];
         return response()->json([
             'status'  => 'success',
             'summary' => $summary,
